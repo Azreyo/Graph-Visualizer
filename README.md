@@ -44,7 +44,7 @@ brew install python3 gcc
 
 ```bash
 git clone https://github.com/Azreyo/Graph-Visualizer
-cd djikstra
+cd Graph-Visualizer
 ```
 
 2. Compile the C++ backend (optional - the application auto-compiles on first run):
