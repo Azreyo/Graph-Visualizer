@@ -512,7 +512,7 @@ class GraphApp:
             ) in self.highlighted_edges
 
             in_path = False
-            if len(self.highlighted_path) > 1:
+            if self.animation_mode == "path" and len(self.highlighted_path) > 1:
                 for i in range(len(self.highlighted_path) - 1):
                     if (
                         self.highlighted_path[i] == n1
@@ -565,10 +565,13 @@ class GraphApp:
             x, y = self.world_to_screen(wx, wy)
 
             is_current_node = False
-            if self.animation_path and len(self.highlighted_path) > 0:
+            if self.animation_mode == "path" and self.animation_path and len(self.highlighted_path) > 0:
                 is_current_node = i == self.highlighted_path[-1]
+            elif self.animation_mode == "edges" and self.animation_edges and self.animation_step > 0:
+                current_edge = self.animation_edges[self.animation_step - 1]
+                is_current_node = i == current_edge[0] or i == current_edge[1]
 
-            if is_current_node and self.animation_path:
+            if is_current_node and (self.animation_path or self.animation_edges):
                 color, outline = "#FF5500", "#CC3300"
             elif i == self.start_node:
                 color, outline = "#00CC00", "#008800"
