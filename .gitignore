@@ -1,0 +1,6 @@
+build/
+dist/
+dist_windows/
+graph_algorithms
+graph_algorithms.exe
+.venv
