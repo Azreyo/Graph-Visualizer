@@ -4,3 +4,7 @@ dist_windows/
 graph_algorithms
 graph_algorithms.exe
 .venv
+gen_release.sh
+GraphVisualizer_linux_amd64.zip
+GraphVisualizer_win_amd64.zip
+run_graph_visualizer.bat

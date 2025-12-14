@@ -330,22 +330,36 @@ class GraphApp:
 
     def compile_cpp(self):
         if not os.path.exists(self.cpp_path):
-            messagebox.showerror("Error", "graph_algorithms.cpp not found!")
+            messagebox.showwarning("Warning", "graph_algorithms.cpp not found!\nAlgorithms will not work.")
             return False
 
         if os.path.exists(self.exe_path):
             if os.path.getmtime(self.exe_path) > os.path.getmtime(self.cpp_path):
                 return True
 
-        result = subprocess.run(
-            ["g++", "-O3", "-std=c++17", "-o", self.exe_path, self.cpp_path],
-            capture_output=True,
-            text=True,
-        )
-        if result.returncode != 0:
-            messagebox.showerror("Compilation Error", result.stderr)
+        try:
+            result = subprocess.run(
+                ["g++", "-O3", "-std=c++17", "-o", self.exe_path, self.cpp_path],
+                capture_output=True,
+                text=True,
+            )
+            if result.returncode != 0:
+                messagebox.showerror("Compilation Error", result.stderr)
+                return False
+            return True
+        except FileNotFoundError:
+            messagebox.showwarning(
+                "Warning"
+                "Compiler Not Found",
+                "g++ compiler not found!\n\n"
+                "To use graph algorithms, please install a C++ compiler:\n"
+                "• Install MinGW-w64 or MSYS2\n"
+                "• Or install Visual Studio Build Tools\n\n"
+                "The app will still run, but algorithms won't work\n"
+                "until you compile graph_algorithms.cpp manually.\n"
+                "This is only a warning you can ignore it."
+            )
             return False
-        return True
 
     def get_node_at(self, x, y):
         wx, wy = self.screen_to_world(x, y)
