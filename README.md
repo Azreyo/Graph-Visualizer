@@ -43,7 +43,7 @@ brew install python3 gcc
 1. Clone or download the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Azreyo/Graph-Visualizer
 cd djikstra
 ```
 
